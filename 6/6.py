@@ -34,5 +34,3 @@ print('total iterations')
 print(counter)
 print('cycle length')
 print counter-cfgs.index(banks_new)
-
-
