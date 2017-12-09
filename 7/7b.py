@@ -1,4 +1,4 @@
-input7="""pbga (66)
+test_input7="""pbga (66)
 xhth (57)
 ebii (61)
 havc (66)
@@ -12,7 +12,7 @@ ugml (68) -> gyxo, ebii, jptl
 gyxo (61)
 cntj (57)""";
 
-real_input7="""apcztdj (61)
+input7="""apcztdj (61)
 ulovosc (61) -> buzjgp, iimyluk
 awpvs (88)
 ykbjhi (14)
@@ -1093,48 +1093,40 @@ idfyy (51) -> vxnwq, meuyumr, oyjjdj, iqwspxd, aobgmc""";
 
 lines=input7.split('\n');
 
-hirar=[];
-under=[];
-over=[];
-tokens=[];
-weights=[];
+answers=dict([])
 for line in lines:
 	l=line.split('->');
-	tokens.append(l);
-	weights.append(l[0].split(' ')[0:2])
-	print line;
-for w in weights:
-	n=int(w[1].split('(')[1].split(')')[0])
-	w[1]=n;
+	[name,own_weight_string] = l[0].split(' ')[0:2];
+	weight= int ((own_weight_string.split('('))[1].split(')')[0])
+	list_of_others=l[1:]
+	others=[];
+	for i in list_of_others:
+		for other in i.split(','):
+			#print other[1:];
+			others.append(other[1:]);
+	#print others;
+	answers.update({name: [weight,others]});
+#print answers
+def own_w(name):
+	return int(answers[name][0])
 
-print weights;
-
-#print w;
-
-#for line in lines:
 def combined_weight(name):
-	return 0;
+	if answers[name][1]==[]:
+		return int(answers[name][0])
+	else:
+		s=int(answers[name][0]);
+		w=[];
+		above_names=[];
+		above_weights=[];
+		for i in answers[name][1]:
+			w.append(combined_weight(i));
+			above_names.append(i);
+			above_weights.append(own_w(i));
+		if min(w) != max(w):
+			print above_names;
+			print w;
+			print above_weights;
+		return sum(w) + s;
+for name in answers.iterkeys():
+	print name+' has weight ' + str(combined_weight(name))
 
-
-for token in tokens:
-	if len(token)==2:
-		hirar.append(token)
-		under.append(token[0])
-		over.append(token[1])
-
-print under;
-print over;
-
-under_names=[];
-for u in under:
-	under_names.append(u.split(' ')[0]);
-	#here we can also read weights in [1]
-#print under_names;
-over_names=[];
-for o in over:
-	over_names.extend(o.split(','))	
-
-print over_names;
-for u in under_names:
-	if ' '+u not in over_names:
-		print u;
