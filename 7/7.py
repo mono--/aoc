@@ -1113,7 +1113,8 @@ print weights;
 
 #for line in lines:
 def combined_weight(name):
-	return 0;
+	for line in liens:
+		if li
 
 
 for token in tokens:
