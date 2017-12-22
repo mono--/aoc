@@ -43,7 +43,7 @@ def knot_hash(inp):
 
 #print knot_hash('147,37,249,1,31,2,226,0,161,71,254,243,183,255,30,70');
 inp="stpzcrnm";
-dimension = 127;
+dimension = 15;
 hex_hashes=[];
 for row in range(dimension+1):
 	hex_hashes.append(knot_hash(inp+"-"+str(row)));
@@ -94,6 +94,13 @@ count = 0;
 for x in range(dimension+1):
 	print str(bin_hashes[x]);
 	for y in range(dimension+1):
+		s="";
+		for t in bin_hashes:
+			for u in t:
+				s=s+u;
+			s=s+"\n";
+			print s;
+		a=raw_input("");
 		if bin_hashes[x][y]=='1':
 			count += 1;
 			bin_hashes[x][y] = '*';
